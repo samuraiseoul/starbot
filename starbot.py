@@ -2,8 +2,13 @@ import os
 import time
 import re
 import string
+import random
 
 from slackclient import SlackClient
+from imgurpython import ImgurClient
+
+IMGUR_CLIENT_ID = os.environ.get('IMGUR_CLIENT_ID')
+IMGUR_CLIENT_SECRET = os.environ.get('IMGUR_CLIENT_SECRET')
 
 BOT_ID = os.environ.get("BOT_ID")
 READ_WEBSOCKET_DELAY = 1
@@ -12,25 +17,33 @@ BOT_DM_STRING = '<@' + BOT_ID + '>'
 TEALC_GIF = 'http://4.bp.blogspot.com/-TahRr7ackxY/UU38wPEpacI/AAAAAAAALGA/a8DAVIQYLD0/s1600/indeed.gif'
 
 slack_client = SlackClient(BOT_TOKEN)
+imgurClient = ImgurClient(IMGUR_CLIENT_ID, IMGUR_CLIENT_SECRET)
+
+def pugBomb(sampleSize = 1):
+    page = random.randint(0,5)
+    gallery =  imgurClient.gallery_search(q='pugs', page=page)
+    length = len(gallery)
+    if sampleSize > length:
+        sampleSize = length
+    pugs = random.sample(gallery, sampleSize)
+    pugText = ''
+    for pug in pugs:
+        pugText += pug.link + '\n'
+    return pugText
 
 def handleMessage(message):
-    print message
     if re.search('^' + BOT_DM_STRING, message, re.IGNORECASE):
-        print BOT_DM_STRING
-        print message.replace(BOT_DM_STRING, '')
         handleDirectMessage(message.replace(BOT_DM_STRING, ''))
     else:
         handleNormalMessage(message)
         
 def handleDirectMessage(message):
-    print message
     if(re.search('pug bomb', message, re.IGNORECASE)):
         explode = string.split(message.strip(), ' ')
-        print explode
         if len(explode) == 2:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Finding one pug', as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(), as_user=True)
         elif len(explode) == 3:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Finding ' + explode[2] + ' pugs', as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(int(explode[2])), as_user=True)
         else:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid Pug Bomb Format pupper!', as_user=True)
                     
