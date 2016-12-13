@@ -3,6 +3,7 @@ import time
 import re
 import string
 import random
+import requests
 
 from slackclient import SlackClient
 from imgurpython import ImgurClient
@@ -31,6 +32,17 @@ def pugBomb(sampleSize = 1):
         pugText += pug.link + '\n'
     return pugText
 
+def xkcd(comic = 0):
+    if not comic:
+        request = requests.get('http://xkcd.com/info.0.json')
+        json = request.json()
+        maxComic = json['num']
+        comic = random.randint(1,maxComic)
+    request = requests.get('http://xkcd.com/' + str(comic) + '/info.0.json')
+    json = request.json()
+    return json['img']
+
+
 def handleMessage(message):
     if re.search('^' + BOT_DM_STRING, message, re.IGNORECASE):
         handleDirectMessage(message.replace(BOT_DM_STRING, ''))
@@ -46,6 +58,16 @@ def handleDirectMessage(message):
             slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(int(explode[2])), as_user=True)
         else:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid Pug Bomb Format pupper!', as_user=True)
+
+    if(re.search('xkcd', message, re.IGNORECASE)):
+        explode = string.split(message.strip(), ' ')
+        if len(explode) == 1:
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(), as_user=True)
+        elif len(explode) == 2:
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(int(explode[1])), as_user=True)
+        else:
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid XKCD Format!', as_user=True)
+
                     
     
 def handleNormalMessage(message):
