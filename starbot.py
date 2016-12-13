@@ -20,9 +20,10 @@ TEALC_GIF = 'http://4.bp.blogspot.com/-TahRr7ackxY/UU38wPEpacI/AAAAAAAALGA/a8DAV
 slack_client = SlackClient(BOT_TOKEN)
 imgurClient = ImgurClient(IMGUR_CLIENT_ID, IMGUR_CLIENT_SECRET)
 
+
 def pugBomb(sampleSize = 1):
     page = random.randint(0,5)
-    gallery =  imgurClient.gallery_search(q='pugs', page=page)
+    gallery = imgurClient.gallery_search(q='pugs', page=page)
     length = len(gallery)
     if sampleSize > length:
         sampleSize = length
@@ -32,12 +33,17 @@ def pugBomb(sampleSize = 1):
         pugText += pug.link + '\n'
     return pugText
 
+
 def xkcd(comic = 0):
     if not comic:
         request = requests.get('http://xkcd.com/info.0.json')
         json = request.json()
         maxComic = json['num']
-        comic = random.randint(1,maxComic)
+        comic = random.randint(1, maxComic)
+    if comic == 'recent':
+        request = requests.get('http://xkcd.com/info.0.json')
+        json = request.json()
+        return json['img']
     request = requests.get('http://xkcd.com/' + str(comic) + '/info.0.json')
     json = request.json()
     return json['img']
@@ -64,7 +70,7 @@ def handleDirectMessage(message):
         if len(explode) == 1:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(), as_user=True)
         elif len(explode) == 2:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(int(explode[1])), as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(explode[1]), as_user=True)
         else:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid XKCD Format!', as_user=True)
 
