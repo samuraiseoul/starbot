@@ -14,3 +14,5 @@ A slack bot made to remind you of the important things in life.
     * Selects a random xkcd comic
  * @starbot xkcd <comic_id>
     * Selects the specified xkcd comic
+ * @starbot xkcd recent
+    * Selects the most recent xkcd comic
