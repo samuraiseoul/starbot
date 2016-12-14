@@ -16,6 +16,7 @@ READ_WEBSOCKET_DELAY = 1
 BOT_TOKEN = os.environ.get('SLACK_BOT_TOKEN')
 BOT_DM_STRING = '<@' + BOT_ID + '>'
 TEALC_GIF = 'http://4.bp.blogspot.com/-TahRr7ackxY/UU38wPEpacI/AAAAAAAALGA/a8DAVIQYLD0/s1600/indeed.gif'
+VADER_GIF = 'http://49.media.tumblr.com/0794b0f2331f54400118a38cec2bdadd/tumblr_o0gmnacvmB1tu6tfso1_500.gif'
 
 slack_client = SlackClient(BOT_TOKEN)
 imgurClient = ImgurClient(IMGUR_CLIENT_ID, IMGUR_CLIENT_SECRET)
@@ -79,6 +80,8 @@ def handleDirectMessage(message):
 def handleNormalMessage(message):
     if(re.search('indeed', message, re.IGNORECASE)):
         slack_client.api_call("chat.postMessage", channel=read['channel'], text=TEALC_GIF, as_user=True)
+    if(re.search('disturbing', message, re.IGNORECASE) or re.search('faith', message, re.IGNORECASE)):
+        slack_client.api_call("chat.postMessage", channel=read['channel'], text=VADER_GIF, as_user=True)
     
 if __name__ == '__main__':
     if slack_client.rtm_connect():
