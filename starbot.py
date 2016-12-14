@@ -22,8 +22,13 @@ slack_client = SlackClient(BOT_TOKEN)
 imgurClient = ImgurClient(IMGUR_CLIENT_ID, IMGUR_CLIENT_SECRET)
 
 
-def pugBomb(sampleSize = 1):
-    page = random.randint(0,5)
+def image(query):
+    gallery = imgurClient.gallery_search(q=query)
+    return random.choice(gallery).link
+
+
+def pugBomb(sampleSize=1):
+    page = random.randint(0, 5)
     gallery = imgurClient.gallery_search(q='pugs', page=page)
     length = len(gallery)
     if sampleSize > length:
@@ -35,7 +40,7 @@ def pugBomb(sampleSize = 1):
     return pugText
 
 
-def xkcd(comic = 0):
+def xkcd(comic=0):
     if not comic:
         request = requests.get('http://xkcd.com/info.0.json')
         json = request.json()
@@ -55,34 +60,47 @@ def handleMessage(message):
         handleDirectMessage(message.replace(BOT_DM_STRING, ''))
     else:
         handleNormalMessage(message)
-        
+
+
 def handleDirectMessage(message):
-    if(re.search('pug bomb', message, re.IGNORECASE)):
+    if re.search('pug bomb', message, re.IGNORECASE):
         explode = string.split(message.strip(), ' ')
         if len(explode) == 2:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(), as_user=True)
         elif len(explode) == 3:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(int(explode[2])), as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=pugBomb(int(explode[2])),
+                                  as_user=True)
         else:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid Pug Bomb Format pupper!', as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid Pug Bomb Format pupper!',
+                                  as_user=True)
 
-    if(re.search('xkcd', message, re.IGNORECASE)):
+    if re.search('xkcd', message, re.IGNORECASE):
         explode = string.split(message.strip(), ' ')
         if len(explode) == 1:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(), as_user=True)
         elif len(explode) == 2:
             slack_client.api_call("chat.postMessage", channel=read['channel'], text=xkcd(explode[1]), as_user=True)
         else:
-            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid XKCD Format!', as_user=True)
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid XKCD Format!',
+                                  as_user=True)
 
-                    
-    
+    if re.search('image me', message, re.IGNORECASE):
+        explode = string.split(message.strip(), ' ')
+        if len(explode) == 3:
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text=image(str(explode[2])),
+                                  as_user=True)
+        else:
+            slack_client.api_call("chat.postMessage", channel=read['channel'], text='Invalid query format!',
+                                  as_user=True)
+
+
 def handleNormalMessage(message):
-    if(re.search('indeed', message, re.IGNORECASE)):
+    if re.search('indeed', message, re.IGNORECASE):
         slack_client.api_call("chat.postMessage", channel=read['channel'], text=TEALC_GIF, as_user=True)
-    if(re.search('disturbing', message, re.IGNORECASE) or re.search('faith', message, re.IGNORECASE)):
+    if re.search('disturbing', message, re.IGNORECASE) or re.search('faith', message, re.IGNORECASE):
         slack_client.api_call("chat.postMessage", channel=read['channel'], text=VADER_GIF, as_user=True)
-    
+
+
 if __name__ == '__main__':
     if slack_client.rtm_connect():
         print "StarterBot connected and running!"
