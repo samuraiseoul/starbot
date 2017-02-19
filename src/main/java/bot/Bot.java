@@ -1,6 +1,7 @@
 package bot;
 
 import bot.Listeners.MessagePostedListener;
+import bot.Rules.DirectMessageRules.HelpRule;
 import bot.Rules.DirectMessageRules.ImageRule;
 import bot.Rules.DirectMessageRules.PugRule;
 import bot.Rules.DirectMessageRules.XkcdMessageRule;
@@ -61,6 +62,7 @@ public class Bot {
         rules.add(new XkcdMessageRule(properties));
         rules.add(new ImageRule(properties));
         rules.add(new PugRule(properties));
+        rules.add(new HelpRule(properties));
         return rules;
     }
 }
