@@ -3,6 +3,7 @@ package bot;
 import bot.Listeners.MessagePostedListener;
 import bot.Rules.DirectMessageRules.XkcdMessageRule;
 import bot.Rules.MessageRules.TealcRule;
+import bot.Rules.MessageRules.VaderRule;
 import bot.Rules.Rule;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
@@ -50,6 +51,7 @@ public class Bot {
     private List<Rule> getMessageRules(){
         List<Rule> rules = new ArrayList<Rule>();
         rules.add(new TealcRule(properties));
+        rules.add(new VaderRule(properties));
         return rules;
     }
 
