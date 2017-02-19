@@ -20,3 +20,5 @@ A slack bot made to remind you of the important things in life.
     * Selects a random xkcd comic
  * @starbot image me {query}
     * Searches imgur for images matching that query and returns a random result from the first page
+ * @starbot translate {sourceLanguage} {targetLanguage} {text to translate}
+    * Uses google translate to translate language from one langauge to the other
