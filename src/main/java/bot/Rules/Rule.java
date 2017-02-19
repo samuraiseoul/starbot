@@ -1,7 +1,14 @@
 package bot.Rules;
 
-public interface Rule {
-    boolean canHandle(String msg, String botId);
+import java.util.Properties;
 
-    String handle(String msg);
+public abstract class Rule {
+    private Properties properties;
+    public Rule(Properties properties) {
+        properties = properties;
+    }
+
+    public abstract boolean canHandle(String msg, String botId);
+
+    public abstract String handle(String msg, String botId);
 }

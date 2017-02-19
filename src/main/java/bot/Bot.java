@@ -8,6 +8,7 @@ import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,12 +16,21 @@ import java.util.List;
 import java.util.Properties;
 
 public class Bot {
-    public void start(){
+    private Properties properties = new Properties();
+
+    public Bot() {
         try {
             InputStream inputStream = new FileInputStream("env.properties");
-            Properties properties = new Properties();
             properties.load(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void start(){
+        try {
             SlackSession session = SlackSessionFactory.createWebSocketSlackSession(properties.getProperty("BOT_ID"));
 
             session.addMessagePostedListener(new MessagePostedListener(this.getRules()));
@@ -39,13 +49,13 @@ public class Bot {
 
     private List<Rule> getMessageRules(){
         List<Rule> rules = new ArrayList<Rule>();
-        rules.add(new TealcRule());
+        rules.add(new TealcRule(properties));
         return rules;
     }
 
     private List<Rule> getDirectMessageRules(){
         List<Rule> rules = new ArrayList<Rule>();
-        rules.add(new XkcdMessageRule());
+        rules.add(new XkcdMessageRule(properties));
         return rules;
     }
 }
