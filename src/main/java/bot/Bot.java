@@ -1,10 +1,7 @@
 package bot;
 
 import bot.Listeners.MessagePostedListener;
-import bot.Rules.DirectMessageRules.HelpRule;
-import bot.Rules.DirectMessageRules.ImageRule;
-import bot.Rules.DirectMessageRules.PugRule;
-import bot.Rules.DirectMessageRules.XkcdMessageRule;
+import bot.Rules.DirectMessageRules.*;
 import bot.Rules.MessageRules.TealcRule;
 import bot.Rules.MessageRules.VaderRule;
 import bot.Rules.Rule;
@@ -63,6 +60,7 @@ public class Bot {
         rules.add(new ImageRule(properties));
         rules.add(new PugRule(properties));
         rules.add(new HelpRule(properties));
+        rules.add(new TranslateRule(properties));
         return rules;
     }
 }
