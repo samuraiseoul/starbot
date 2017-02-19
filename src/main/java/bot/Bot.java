@@ -1,6 +1,7 @@
 package bot;
 
 import bot.Listeners.MessagePostedListener;
+import bot.Rules.DirectMessageRules.ImageRule;
 import bot.Rules.DirectMessageRules.XkcdMessageRule;
 import bot.Rules.MessageRules.TealcRule;
 import bot.Rules.MessageRules.VaderRule;
@@ -33,7 +34,6 @@ public class Bot {
     public void start(){
         try {
             SlackSession session = SlackSessionFactory.createWebSocketSlackSession(properties.getProperty("BOT_ID"));
-
             session.addMessagePostedListener(new MessagePostedListener(this.getRules()));
             session.connect();
         } catch (IOException e) {
@@ -58,6 +58,7 @@ public class Bot {
     private List<Rule> getDirectMessageRules(){
         List<Rule> rules = new ArrayList<Rule>();
         rules.add(new XkcdMessageRule(properties));
+        rules.add(new ImageRule(properties));
         return rules;
     }
 }

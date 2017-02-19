@@ -3,9 +3,9 @@ package bot.Rules;
 import java.util.Properties;
 
 public abstract class Rule {
-    private Properties properties;
+    protected Properties properties;
     public Rule(Properties properties) {
-        properties = properties;
+        this.properties = properties;
     }
 
     public abstract boolean canHandle(String msg, String botId);
