@@ -9,7 +9,6 @@ import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,8 +22,6 @@ public class Bot {
         try {
             InputStream inputStream = new FileInputStream("env.properties");
             properties.load(inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,24 +38,25 @@ public class Bot {
     }
 
     private List<Rule> getRules(){
-        List<Rule> rules = new ArrayList<Rule>();
+        List<Rule> rules = new ArrayList<>();
         rules.addAll(this.getMessageRules());
         rules.addAll(this.getDirectMessageRules());
         return rules;
     }
 
     private List<Rule> getMessageRules(){
-        List<Rule> rules = new ArrayList<Rule>();
+        List<Rule> rules = new ArrayList<>();
         rules.add(new TealcRule(properties));
         rules.add(new VaderRule(properties));
         return rules;
     }
 
     private List<Rule> getDirectMessageRules(){
-        List<Rule> rules = new ArrayList<Rule>();
+        List<Rule> rules = new ArrayList<>();
         rules.add(new XkcdMessageRule(properties));
         rules.add(new ImageRule(properties));
         rules.add(new PugRule(properties));
+        rules.add(new CorgiRule(properties));
         rules.add(new HelpRule(properties));
         rules.add(new TranslateRule(properties));
         return rules;
