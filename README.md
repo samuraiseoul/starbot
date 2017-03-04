@@ -10,6 +10,10 @@ A slack bot made to remind you of the important things in life.
     * Selects a pug image from google images
  * @starbot pug bomb {n}
     * Selects {n} number of pug images from google images
+ * @starbot corgi bomb
+    * Selects a corgi image from google images
+ * @starbot corgi bomb {n}
+    * Selects {n} number of corgi images from google images
  * indeed
     * Any messages in a channel where slackbot is present and someone says the word indeed, causes a gif of Teal'c from Stargate SG-1 saying "Indeed" to appear
  * faith/disturbing
