@@ -1,6 +1,6 @@
 package bot.Rules.DirectMessageRules;
 
-import bot.Helpers.ImgurHelper;
+import bot.Helpers.GoogleImageHelper;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -18,14 +18,14 @@ public class PugRule extends DirectMessageRule {
     @Override
     public String handle(String msg, String botId) {
         try {
-            int number = 0;
+            int number;
             try {
                 number = Integer.parseInt(super.handle(msg, botId).replace("pug bomb", "").trim());
             } catch(NumberFormatException e){
                 number = 1;
             }
-            ImgurHelper imgur = new ImgurHelper(properties.getProperty("IMGUR_ID"));
-            return imgur.search("pug", number);
+            GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
+            return googleImageHelper.search("pug", number);
         } catch (IOException e) {
             e.printStackTrace();
         }

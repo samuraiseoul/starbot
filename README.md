@@ -7,9 +7,9 @@ A slack bot made to remind you of the important things in life.
  * @starbot help
     * Displays a link to this github page.
  * @starbot pug bomb
-    * Selects a pug image from imgur
+    * Selects a pug image from google images
  * @starbot pug bomb {n}
-    * Selects {n} number of pug images from imgur
+    * Selects {n} number of pug images from google images
  * indeed
     * Any messages in a channel where slackbot is present and someone says the word indeed, causes a gif of Teal'c from Stargate SG-1 saying "Indeed" to appear
  * faith/disturbing
@@ -19,6 +19,6 @@ A slack bot made to remind you of the important things in life.
  * @starbot xkcd random
     * Selects a random xkcd comic
  * @starbot image me {query}
-    * Searches imgur for images matching that query and returns a random result from the first page
+    * Searches google images for images matching that query and returns a random result from the first page
  * @starbot translate {sourceLanguage} {targetLanguage} {text to translate}
     * Uses google translate to translate language from one langauge to the other
