@@ -1,6 +1,6 @@
 package bot.Rules.DirectMessageRules;
 
-import bot.Helpers.ImgurHelper;
+import bot.Helpers.GoogleImageHelper;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -18,8 +18,8 @@ public class ImageRule extends DirectMessageRule {
     @Override
     public String handle(String msg, String botId) {
         try {
-            ImgurHelper imgur = new ImgurHelper(properties.getProperty("IMGUR_ID"));
-            return imgur.search(super.handle(msg, botId).replace("image me", "").trim());
+            GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
+            return googleImageHelper.search(super.handle(msg, botId).replace("image me", "").trim());
         } catch (IOException e) {
             e.printStackTrace();
         }

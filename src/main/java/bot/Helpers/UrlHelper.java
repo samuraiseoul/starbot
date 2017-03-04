@@ -7,8 +7,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +20,7 @@ public class UrlHelper {
     public final static String HTTPS = "https";
 
     public static JsonElement getJson(final String host, final String uri, final int port, final String scheme, final List<Header> headers) throws IOException{
-        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpClient httpClient = HttpClientBuilder.create().setSSLHostnameVerifier(new AllowAllHostnameVerifier()).build();
         HttpHost target = new HttpHost(host, port, scheme);
         HttpGet getRequest = new HttpGet(uri);
         for(Header header : headers){
