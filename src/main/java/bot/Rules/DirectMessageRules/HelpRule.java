@@ -9,7 +9,7 @@ public class HelpRule extends DirectMessageRule {
 
     @Override
     public boolean canHandle(String msg, String botId) {
-        return super.canHandle(msg, botId) && msg.toLowerCase().contains("help");
+        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().equals(" help");
     }
 
     @Override
