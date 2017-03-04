@@ -59,6 +59,7 @@ public class Bot {
         rules.add(new CorgiRule(properties));
         rules.add(new HelpRule(properties));
         rules.add(new TranslateRule(properties));
+        rules.add(new SaveRule(properties));
         return rules;
     }
 }

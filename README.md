@@ -22,3 +22,5 @@ A slack bot made to remind you of the important things in life.
     * Searches google images for images matching that query and returns a random result from the first page
  * @starbot translate {sourceLanguage} {targetLanguage} {text to translate}
     * Uses google translate to translate language from one langauge to the other
+ * @starbot save me
+    * Selects and displays a random bible verse from http://www.ourmanna.com
