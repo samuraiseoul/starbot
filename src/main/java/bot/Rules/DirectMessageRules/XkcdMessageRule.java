@@ -1,5 +1,6 @@
 package bot.Rules.DirectMessageRules;
 
+import bot.Helpers.UrlHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -44,11 +45,7 @@ public class XkcdMessageRule extends DirectMessageRule {
     }
 
     private JsonObject getXkcdJson(String uri) throws IOException {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpHost target = new HttpHost("xkcd.com", 80, "http");
-        HttpGet getRequest = new HttpGet(uri);
-        HttpEntity entity = httpClient.execute(target, getRequest).getEntity();
-        JsonElement jsonObj = new JsonParser().parse(EntityUtils.toString(entity));
+        JsonElement jsonObj = UrlHelper.getJson("xkcd.com", uri, UrlHelper.HTTP);
         return jsonObj.getAsJsonObject();
     }
 

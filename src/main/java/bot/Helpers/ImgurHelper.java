@@ -2,20 +2,11 @@ package bot.Helpers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class ImgurHelper {
     private String clientId;
@@ -25,12 +16,13 @@ public class ImgurHelper {
     }
 
     public String search(String query, int number) throws IOException {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpHost target = new HttpHost("api.imgur.com", 443, "https");
-        HttpGet getRequest = new HttpGet("/3/gallery/search/?q=" + URLEncoder.encode(query, "UTF-8"));
-        getRequest.addHeader(new BasicHeader("Authorization", "Client-ID " + clientId));
-        HttpEntity entity = httpClient.execute(target, getRequest).getEntity();
-        JsonObject jsonObj = new JsonParser().parse(EntityUtils.toString(entity)).getAsJsonObject();
+        JsonObject jsonObj = UrlHelper.getJson(
+                "api.imgur.com",
+                "/3/gallery/search/?q=" + URLEncoder.encode(query, "UTF-8"),
+                443,
+                "https",
+                Collections.singletonList(new BasicHeader("Authorization", "Client-ID " + clientId))
+        ).getAsJsonObject();
         JsonArray data = jsonObj.get("data").getAsJsonArray();
         if(data.size() == 0){return null;}
         Random random = new Random();
