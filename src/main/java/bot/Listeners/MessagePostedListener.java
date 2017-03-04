@@ -27,7 +27,12 @@ public class MessagePostedListener implements SlackMessagePostedListener{
 
         for (Rule rule: this.rules) {
             if(rule.canHandle(messageContent, self.getId())){
-                session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
+                try {
+                    session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
+                } catch(Throwable t) {
+                    t.printStackTrace();
+                    session.sendMessage(channelOnWhichMessageWasPosted, "Oops sorry, something went wrong, please contact my creator.");
+                }
             }
         }
     }
