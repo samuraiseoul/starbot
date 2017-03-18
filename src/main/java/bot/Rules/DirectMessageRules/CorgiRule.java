@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class CorgiRule extends DirectMessageRule {
-    public CorgiRule(Properties properties) {
+    public CorgiRule(final Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean canHandle(String msg, String botId) {
+    public boolean canHandle(final String msg, final String botId) {
         return super.canHandle(msg, botId) && msg.contains("corgi bomb");
     }
 
     @Override
-    public String handle(String msg, String botId) {
+    public String handle(final String msg, final String botId) {
         try {
             int number;
             try {

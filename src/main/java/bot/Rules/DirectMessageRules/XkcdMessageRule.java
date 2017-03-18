@@ -18,23 +18,23 @@ import java.util.Random;
 public class XkcdMessageRule extends DirectMessageRule {
     private static final String XKCD_URI = "/info.0.json";
 
-    public XkcdMessageRule(Properties properties) {
+    public XkcdMessageRule(final Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean canHandle(String msg, String botId) {
+    public boolean canHandle(final String msg, final String botId) {
         return super.canHandle(msg, botId) && msg.toLowerCase().contains("xkcd");
     }
 
     @Override
-    public String handle(String msg, String botId) {
+    public String handle(final String msg, final String botId) {
         try {
-            msg = super.handle(msg, botId).replace("xkcd", "").trim();
-            if(msg.equals("")){
+            final String message = super.handle(msg, botId).replace("xkcd", "").trim();
+            if(message.equals("")){
                 return this.getMostRecentXkcd();
             }
-            if(msg.equals("random")){
+            if(message.equals("random")){
                 return this.getRandomXkcd();
             }
             return "Invalid xkcd format!";
@@ -44,21 +44,21 @@ public class XkcdMessageRule extends DirectMessageRule {
         return null;
     }
 
-    private JsonObject getXkcdJson(String uri) throws IOException {
-        JsonElement jsonObj = UrlHelper.getJson("xkcd.com", uri, UrlHelper.HTTP);
+    private JsonObject getXkcdJson(final String uri) throws IOException {
+        final JsonElement jsonObj = UrlHelper.getJson("xkcd.com", uri, UrlHelper.HTTP);
         return jsonObj.getAsJsonObject();
     }
 
     private String getRandomXkcd() throws IOException{
-        int max = this.getXkcdJson(XKCD_URI).get("num").getAsInt();
-        Random random = new Random();
-        int comic = random.nextInt(max) + 1;
-        JsonObject xkcdObject = this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject();
+        final int max = this.getXkcdJson(XKCD_URI).get("num").getAsInt();
+        final Random random = new Random();
+        final int comic = random.nextInt(max) + 1;
+        final JsonObject xkcdObject = this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject();
         return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 
     private String getMostRecentXkcd() throws IOException {
-        JsonObject xkcdObject = this.getXkcdJson(XKCD_URI).getAsJsonObject();
+        final JsonObject xkcdObject = this.getXkcdJson(XKCD_URI).getAsJsonObject();
         return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 }

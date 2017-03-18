@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PugRule extends DirectMessageRule {
-    public PugRule(Properties properties) {
+    public PugRule(final Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean canHandle(String msg, String botId) {
+    public boolean canHandle(final String msg, final String botId) {
         return super.canHandle(msg, botId) && msg.contains("pug bomb");
     }
 
     @Override
-    public String handle(String msg, String botId) {
+    public String handle(final String msg, final String botId) {
         try {
             int number;
             try {
@@ -24,7 +24,7 @@ public class PugRule extends DirectMessageRule {
             } catch(NumberFormatException e){
                 number = 1;
             }
-            GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
+            final GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
             return googleImageHelper.search("pug", number);
         } catch (IOException e) {
             e.printStackTrace();

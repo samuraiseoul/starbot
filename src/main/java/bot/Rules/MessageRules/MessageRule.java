@@ -4,12 +4,12 @@ import bot.Rules.Rule;
 
 import java.util.Properties;
 
-public abstract class MessageRule extends Rule{
-    MessageRule(Properties properties) {
+abstract class MessageRule extends Rule{
+    MessageRule(final Properties properties) {
         super(properties);
     }
 
-    public boolean canHandle(String msg, String botId) {
+    public boolean canHandle(final String msg, final String botId) {
         return !msg.contains("<@" + botId + ">");
     }
 }

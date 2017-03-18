@@ -20,13 +20,13 @@ public class UrlHelper {
     public final static String HTTPS = "https";
 
     public static JsonElement getJson(final String host, final String uri, final int port, final String scheme, final List<Header> headers) throws IOException{
-        HttpClient httpClient = HttpClientBuilder.create().setSSLHostnameVerifier(new AllowAllHostnameVerifier()).build();
-        HttpHost target = new HttpHost(host, port, scheme);
-        HttpGet getRequest = new HttpGet(uri);
-        for(Header header : headers){
+        final HttpClient httpClient = HttpClientBuilder.create().setSSLHostnameVerifier(new AllowAllHostnameVerifier()).build();
+        final HttpHost target = new HttpHost(host, port, scheme);
+        final HttpGet getRequest = new HttpGet(uri);
+        for(final Header header : headers){
             getRequest.addHeader(header);
         }
-        HttpEntity entity = httpClient.execute(target, getRequest).getEntity();
+        final HttpEntity entity = httpClient.execute(target, getRequest).getEntity();
         return new JsonParser().parse(EntityUtils.toString(entity));
     }
 
