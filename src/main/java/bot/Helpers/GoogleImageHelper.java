@@ -61,6 +61,8 @@ public class GoogleImageHelper {
         final int minYear = calendar.get(Calendar.YEAR) - MAX_YEARS_PAST;
         final int fromYear = minYear + random.nextInt(MAX_YEARS_PAST);
         final int toYear = fromYear + random.nextInt(calendar.get(Calendar.YEAR) - fromYear);
-        return "date:r:" + fromYear + (random.nextInt(12) + 1) + "01:" + toYear + (random.nextInt(12) + 1) + "01";
+        final int fromMonth = (random.nextInt(12) + 1);
+        final int toMonth = (random.nextInt(12) + 1);
+        return "date:r:" + (fromYear - 1) + (fromMonth  < 10 ? "0" + fromMonth : fromMonth ) + "01:" + toYear + (toMonth < 10 ? "0" + toMonth: toMonth) + "01";
     }
 }

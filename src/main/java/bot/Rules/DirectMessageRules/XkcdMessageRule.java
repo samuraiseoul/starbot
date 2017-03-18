@@ -53,10 +53,12 @@ public class XkcdMessageRule extends DirectMessageRule {
         final int max = this.getXkcdJson(XKCD_URI).get("num").getAsInt();
         final Random random = new Random();
         int comic = random.nextInt(max) + 1;
-        return this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject().get("img").getAsString();
+        JsonObject xkcdObject = this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject();
+        return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 
     private String getMostRecentXkcd() throws IOException {
-        return this.getXkcdJson(XKCD_URI).get("img").getAsString();
+        JsonObject xkcdObject = this.getXkcdJson(XKCD_URI).getAsJsonObject();
+        return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 }
