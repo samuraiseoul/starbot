@@ -15,7 +15,7 @@ public class SaveRule extends DirectMessageRule{
 
     @Override
     public boolean canHandle(String msg, String botId) {
-        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().equals(" save me");
+        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().contains(" save ");
     }
 
     @Override
@@ -24,7 +24,8 @@ public class SaveRule extends DirectMessageRule{
             JsonElement element = UrlHelper.getJson("www.ourmanna.com", "/verses/api/get/?format=text&order=random&format=json", UrlHelper.HTTP);
             JsonObject response = element.getAsJsonObject();
             JsonObject verse = response.get("verse").getAsJsonObject().get("details").getAsJsonObject();
-            return "```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
+            String user = super.handle(msg, botId).replace("save ", "");
+            return (!user.equals("me") ? user : "") + "```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
         } catch (IOException e) {
             e.printStackTrace();
         }
