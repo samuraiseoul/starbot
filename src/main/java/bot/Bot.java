@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Properties;
 
 public class Bot {
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     public Bot() {
         try {
-            InputStream inputStream = new FileInputStream("env.properties");
+            final InputStream inputStream = new FileInputStream("env.properties");
             properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,7 +29,7 @@ public class Bot {
 
     public void start(){
         try {
-            SlackSession session = SlackSessionFactory.createWebSocketSlackSession(properties.getProperty("BOT_ID"));
+            final SlackSession session = SlackSessionFactory.createWebSocketSlackSession(properties.getProperty("BOT_ID"));
             session.addMessagePostedListener(new MessagePostedListener(this.getRules()));
             session.connect();
         } catch (IOException e) {
@@ -38,21 +38,21 @@ public class Bot {
     }
 
     private List<Rule> getRules(){
-        List<Rule> rules = new ArrayList<>();
+        final List<Rule> rules = new ArrayList<>();
         rules.addAll(this.getMessageRules());
         rules.addAll(this.getDirectMessageRules());
         return rules;
     }
 
     private List<Rule> getMessageRules(){
-        List<Rule> rules = new ArrayList<>();
+        final List<Rule> rules = new ArrayList<>();
         rules.add(new TealcRule(properties));
         rules.add(new VaderRule(properties));
         return rules;
     }
 
     private List<Rule> getDirectMessageRules(){
-        List<Rule> rules = new ArrayList<>();
+        final List<Rule> rules = new ArrayList<>();
         rules.add(new XkcdMessageRule(properties));
         rules.add(new ImageRule(properties));
         rules.add(new PugRule(properties));

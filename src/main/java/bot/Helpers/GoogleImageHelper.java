@@ -14,26 +14,26 @@ public class GoogleImageHelper {
     private static final int START_MAX = 100;
     private static final int MAX_YEARS_PAST = 10;
 
-    private String searchKey;
-    private String googleKey;
+    private final String searchKey;
+    private final String googleKey;
 
-    public GoogleImageHelper(String searchKey, String googleKey) {
+    public GoogleImageHelper(final String searchKey, final String googleKey) {
         this.searchKey = searchKey;
         this.googleKey = googleKey;
     }
 
-    public String search(String query, int number) throws IOException {
-        JsonObject jsonObj = UrlHelper.getJson("www.googleapis.com", uriBuilder(query, number), 443, UrlHelper.HTTPS).getAsJsonObject();
-        JsonArray items = jsonObj.get("items").getAsJsonArray();
+    public String search(final String query, final int number) throws IOException {
+        final JsonObject jsonObj = UrlHelper.getJson("www.googleapis.com", uriBuilder(query, number), 443, UrlHelper.HTTPS).getAsJsonObject();
+        final JsonArray items = jsonObj.get("items").getAsJsonArray();
         if(items.size() == 0){return null;}
-        Set<String> images = new HashSet<>();
-        for(JsonElement item : items){
+        final Set<String> images = new HashSet<>();
+        for(final JsonElement item : items){
             images.add(item.getAsJsonObject().get("link").getAsString());
         }
         return String.join(" ", images);
     }
 
-    public String search(String query) throws IOException {
+    public String search(final String query) throws IOException {
         return this.search(query, 1);
     }
 

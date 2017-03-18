@@ -1,8 +1,8 @@
 import bot.Bot;
 
 public class StarBot {
-    public static void main(String[] args){
-        Bot starbot = new Bot();
+    public static void main(final String[] args){
+        final Bot starbot = new Bot();
         starbot.start();
     }
 }

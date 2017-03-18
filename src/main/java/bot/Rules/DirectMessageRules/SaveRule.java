@@ -9,21 +9,21 @@ import java.util.Properties;
 
 public class SaveRule extends DirectMessageRule{
 
-    public SaveRule(Properties properties) {
+    public SaveRule(final Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean canHandle(String msg, String botId) {
+    public boolean canHandle(final String msg, final String botId) {
         return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().equals(" save me");
     }
 
     @Override
-    public String handle(String msg, String botId) {
+    public String handle(final String msg, final String botId) {
         try {
-            JsonElement element = UrlHelper.getJson("www.ourmanna.com", "/verses/api/get/?format=text&order=random&format=json", UrlHelper.HTTP);
-            JsonObject response = element.getAsJsonObject();
-            JsonObject verse = response.get("verse").getAsJsonObject().get("details").getAsJsonObject();
+            final JsonElement element = UrlHelper.getJson("www.ourmanna.com", "/verses/api/get/?format=text&order=random&format=json", UrlHelper.HTTP);
+            final JsonObject response = element.getAsJsonObject();
+            final JsonObject verse = response.get("verse").getAsJsonObject().get("details").getAsJsonObject();
             return "```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
         } catch (IOException e) {
             e.printStackTrace();

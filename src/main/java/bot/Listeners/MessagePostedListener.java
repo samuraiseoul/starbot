@@ -12,20 +12,20 @@ import java.util.List;
 
 public class MessagePostedListener implements SlackMessagePostedListener{
 
-    private List<Rule> rules;
+    private final List<Rule> rules;
 
-    public MessagePostedListener(List<Rule> rules) {
+    public MessagePostedListener(final List<Rule> rules) {
         this.rules = rules;
     }
 
-    public void onEvent(SlackMessagePosted event, SlackSession session) {
-        SlackChannel channelOnWhichMessageWasPosted = event.getChannel();
-        String messageContent = event.getMessageContent();
-        SlackUser messageSender = event.getSender();
-        SlackPersona self = session.sessionPersona();
+    public void onEvent(final SlackMessagePosted event, final SlackSession session) {
+        final SlackChannel channelOnWhichMessageWasPosted = event.getChannel();
+        final String messageContent = event.getMessageContent();
+        final SlackUser messageSender = event.getSender();
+        final SlackPersona self = session.sessionPersona();
         if(self.getId().equals(messageSender.getId())) { return; }
 
-        for (Rule rule: this.rules) {
+        for (final Rule rule: this.rules) {
             if(rule.canHandle(messageContent, self.getId()) && !messageSender.isBot()){
                 try {
                     session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
