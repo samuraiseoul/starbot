@@ -23,7 +23,9 @@ public class GoogleImageHelper {
     }
 
     public String search(String query, int number) throws IOException {
-        JsonObject jsonObj = UrlHelper.getJson("www.googleapis.com", uriBuilder(query, number), 443, UrlHelper.HTTPS).getAsJsonObject();
+        final String uri = uriBuilder(query, number);
+        System.out.println(uri);
+        JsonObject jsonObj = UrlHelper.getJson("www.googleapis.com", uri, 443, UrlHelper.HTTPS).getAsJsonObject();
         JsonArray items = jsonObj.get("items").getAsJsonArray();
         if(items.size() == 0){return null;}
         Set<String> images = new HashSet<>();
@@ -61,6 +63,7 @@ public class GoogleImageHelper {
         final int minYear = calendar.get(Calendar.YEAR) - MAX_YEARS_PAST;
         final int fromYear = minYear + random.nextInt(MAX_YEARS_PAST);
         final int toYear = fromYear + random.nextInt(calendar.get(Calendar.YEAR) - fromYear);
-        return "date:r:" + fromYear + (random.nextInt(12) + 1) + "01:" + toYear + (random.nextInt(12) + 1) + "01";
+        final int month = (random.nextInt(12) + 1);
+        return "date:r:" + (fromYear - 1) + (random.nextInt(12) + 1) + "01:" + toYear + (month < 10 ? "0" + month: month) + "01";
     }
 }
