@@ -52,13 +52,13 @@ public class XkcdMessageRule extends DirectMessageRule {
     private String getRandomXkcd() throws IOException{
         final int max = this.getXkcdJson(XKCD_URI).get("num").getAsInt();
         final Random random = new Random();
-        int comic = random.nextInt(max) + 1;
-        JsonObject xkcdObject = this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject();
+        final int comic = random.nextInt(max) + 1;
+        final JsonObject xkcdObject = this.getXkcdJson("/" + comic + XKCD_URI).getAsJsonObject();
         return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 
     private String getMostRecentXkcd() throws IOException {
-        JsonObject xkcdObject = this.getXkcdJson(XKCD_URI).getAsJsonObject();
+        final JsonObject xkcdObject = this.getXkcdJson(XKCD_URI).getAsJsonObject();
         return xkcdObject.get("alt") + " " + xkcdObject.get("img").getAsString();
     }
 }

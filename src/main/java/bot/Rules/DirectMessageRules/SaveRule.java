@@ -24,7 +24,7 @@ public class SaveRule extends DirectMessageRule{
             final JsonElement element = UrlHelper.getJson("www.ourmanna.com", "/verses/api/get/?format=text&order=random&format=json", UrlHelper.HTTP);
             final JsonObject response = element.getAsJsonObject();
             final JsonObject verse = response.get("verse").getAsJsonObject().get("details").getAsJsonObject();
-            String user = super.handle(msg, botId).replace("save ", "");
+            final String user = super.handle(msg, botId).replace("save ", "");
             return (!user.equals("me") ? user : "") + "```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
         } catch (IOException e) {
             e.printStackTrace();
