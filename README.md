@@ -5,7 +5,7 @@ A slack bot made to remind you of the important things in life.
 ## Commands
 ----
  * @starbot help
-    * Displays a link to this github page.
+    * Displays this readme file.
  * @starbot pug bomb
     * Selects a pug image from google images
  * @starbot pug bomb {n}

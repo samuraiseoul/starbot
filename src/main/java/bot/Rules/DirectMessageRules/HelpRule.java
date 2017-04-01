@@ -1,6 +1,12 @@
 package bot.Rules.DirectMessageRules;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
+import java.util.Scanner;
+
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Paths.get;
 
 public class HelpRule extends DirectMessageRule {
     public HelpRule(final Properties properties) {
@@ -14,6 +20,10 @@ public class HelpRule extends DirectMessageRule {
 
     @Override
     public String handle(final String msg, final String botId) {
-        return "Visit https://github.com/samuraiseoul/starbot to see a list of things I can do!";
+        try {
+            return "```" + new Scanner(new File("README.md")).useDelimiter("\\Z").next() + "```";
+        } catch (IOException e) {
+            return "Unable to display help. Please contact my creator.";
+        }
     }
 }
