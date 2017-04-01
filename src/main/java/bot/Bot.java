@@ -55,8 +55,7 @@ public class Bot {
         final List<Rule> rules = new ArrayList<>();
         rules.add(new XkcdMessageRule(properties));
         rules.add(new ImageRule(properties));
-        rules.add(new PugRule(properties));
-        rules.add(new CorgiRule(properties));
+        rules.add(new BombRule(properties));
         rules.add(new HelpRule(properties));
         rules.add(new TranslateRule(properties));
         rules.add(new SaveRule(properties));
