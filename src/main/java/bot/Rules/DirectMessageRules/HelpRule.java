@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Paths.get;
-
 public class HelpRule extends DirectMessageRule {
     public HelpRule(final Properties properties) {
         super(properties);
