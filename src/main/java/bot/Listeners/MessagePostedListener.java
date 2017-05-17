@@ -7,13 +7,17 @@ import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.SlackUser;
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class MessagePostedListener implements SlackMessagePostedListener{
 
     private final List<Rule> rules;
 
+    @Autowired
     public MessagePostedListener(final List<Rule> rules) {
         this.rules = rules;
     }
