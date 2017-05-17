@@ -1,10 +1,15 @@
 package bot.Rules.MessageRules;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VaderRule extends MessageRule {
-    private static final String VADER_GIF = "http://49.media.tumblr.com/0794b0f2331f54400118a38cec2bdadd/tumblr_o0gmnacvmB1tu6tfso1_500.gif";
+    private final String vaderGif;
+
+    public VaderRule(@Value("${VADER}") final String vaderGif) {
+        this.vaderGif = vaderGif;
+    }
 
     @Override
     public boolean canHandle(final String msg, final String botId) {
@@ -15,6 +20,6 @@ public class VaderRule extends MessageRule {
     }
 
     public String handle(final String msg, final String botId) {
-        return VADER_GIF;
+        return this.vaderGif;
     }
 }
