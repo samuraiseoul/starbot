@@ -29,6 +29,7 @@ public class MessagePostedListener implements SlackMessagePostedListener{
             if(rule.canHandle(messageContent, self.getId()) && !messageSender.isBot()){
                 try {
                     session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
+                    break;
                 } catch(Throwable t) {
                     t.printStackTrace();
                     session.sendMessage(channelOnWhichMessageWasPosted, "Oops sorry, something went wrong, please contact my creator.");

@@ -20,7 +20,7 @@ public class SaveRule extends DirectMessageRule{
 
     @Override
     public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().contains(" save ");
+        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().startsWith(" save ");
     }
 
     @Override
