@@ -3,23 +3,21 @@ package bot.Rules.DirectMessageRules;
 import bot.Helpers.UrlHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Properties;
 import java.util.Random;
 
+@Component
 public class XkcdMessageRule extends DirectMessageRule {
     private static final String XKCD_URI = "/info.0.json";
 
-    public XkcdMessageRule(final Properties properties) {
-        super(properties);
+    private final UrlHelper urlHelper;
+
+    @Autowired
+    public XkcdMessageRule(final UrlHelper urlHelper) {
+        this.urlHelper = urlHelper;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class XkcdMessageRule extends DirectMessageRule {
     }
 
     private JsonObject getXkcdJson(final String uri) throws IOException {
-        final JsonElement jsonObj = UrlHelper.getJson("xkcd.com", uri, UrlHelper.HTTP);
+        final JsonElement jsonObj = this.urlHelper.getJson("xkcd.com", uri, UrlHelper.HTTP);
         return jsonObj.getAsJsonObject();
     }
 

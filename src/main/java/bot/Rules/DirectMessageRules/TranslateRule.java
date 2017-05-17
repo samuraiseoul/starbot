@@ -2,12 +2,20 @@ package bot.Rules.DirectMessageRules;
 
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
+@Component
 public class TranslateRule extends DirectMessageRule {
-    public TranslateRule(final Properties properties) {
-        super(properties);
+    private final String googleKey;
+
+    public TranslateRule(@Value("${GOOGLE_KEY}") final String googleKey) {
+        this.googleKey = googleKey;
     }
 
     @Override
@@ -24,7 +32,7 @@ public class TranslateRule extends DirectMessageRule {
         final String source = this.convertToIso639(options.remove(0));
         final String target = this.convertToIso639(options.remove(0));
         final String query = String.join(" ", options);
-        final Translate translator = TranslateOptions.newBuilder().setApiKey(properties.getProperty("GOOGLE_KEY")).build().getService();
+        final Translate translator = TranslateOptions.newBuilder().setApiKey(this.googleKey).build().getService();
         return translator.translate(query, Translate.TranslateOption.sourceLanguage(source), Translate.TranslateOption.targetLanguage(target)).getTranslatedText();
     }
 

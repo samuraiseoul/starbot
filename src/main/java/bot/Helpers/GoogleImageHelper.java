@@ -3,27 +3,37 @@ package bot.Helpers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
+@Component
 public class GoogleImageHelper {
     private static final int START_MIN = 1;
     private static final int START_MAX = 100;
     private static final int MAX_YEARS_PAST = 10;
 
+
     private final String searchKey;
+
     private final String googleKey;
 
-    public GoogleImageHelper(final String searchKey, final String googleKey) {
+    private final UrlHelper urlHelper;
+
+    @Autowired
+    public GoogleImageHelper(@Value("${GOOGLE_SEARCH}") final String searchKey, @Value("${GOOGLE_KEY}") final String googleKey, final UrlHelper urlHelper) {
         this.searchKey = searchKey;
         this.googleKey = googleKey;
+        this.urlHelper = urlHelper;
     }
 
     public String search(final String query, final int number) throws IOException {
-        final JsonObject jsonObj = UrlHelper.getJson("www.googleapis.com", uriBuilder(query, number), 443, UrlHelper.HTTPS).getAsJsonObject();
+        final JsonObject jsonObj = this.urlHelper.getJson("www.googleapis.com", uriBuilder(query, number), 443, UrlHelper.HTTPS).getAsJsonObject();
         final JsonArray items = jsonObj.get("items").getAsJsonArray();
         if(items.size() == 0){return null;}
         final Set<String> images = new HashSet<>();

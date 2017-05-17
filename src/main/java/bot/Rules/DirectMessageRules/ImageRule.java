@@ -1,13 +1,18 @@
 package bot.Rules.DirectMessageRules;
 
 import bot.Helpers.GoogleImageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Properties;
 
+@Component
 public class ImageRule extends DirectMessageRule {
-    public ImageRule(final Properties properties) {
-        super(properties);
+    private final GoogleImageHelper googleImageHelper;
+
+    @Autowired
+    public ImageRule(final GoogleImageHelper googleImageHelper) {
+        this.googleImageHelper = googleImageHelper;
     }
 
     @Override
@@ -18,8 +23,7 @@ public class ImageRule extends DirectMessageRule {
     @Override
     public String handle(final String msg, final String botId) {
         try {
-            final GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
-            return googleImageHelper.search(super.handle(msg, botId).replace("image me", "").trim());
+            return this.googleImageHelper.search(super.handle(msg, botId).replace("image me", "").trim());
         } catch (IOException e) {
             e.printStackTrace();
         }

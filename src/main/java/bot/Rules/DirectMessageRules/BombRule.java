@@ -1,18 +1,28 @@
 package bot.Rules.DirectMessageRules;
 
 import bot.Helpers.GoogleImageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Properties;
 
+@Component
 public class BombRule extends DirectMessageRule {
-    public BombRule(final Properties properties) {
-        super(properties);
+
+    private final String bombs;
+
+    private final GoogleImageHelper googleImageHelper;
+
+    @Autowired
+    public BombRule(@Value("${BOMBS}") final String bombs, GoogleImageHelper googleImageHelper) {
+        this.bombs = bombs;
+        this.googleImageHelper = googleImageHelper;
     }
 
     @Override
     public boolean canHandle(final String msg, final String botId) {
-        for(final String bomb: properties.getProperty("BOMBS").split(",")){
+        for(final String bomb: this.bombs.split(",")){
             if(super.canHandle(msg, botId) && msg.contains(bomb + " bomb")){
                 return true;
             }
@@ -24,7 +34,7 @@ public class BombRule extends DirectMessageRule {
     public String handle(final String msg, final String botId) {
         try {
             String bombType = null;
-            for(final String bomb: properties.getProperty("BOMBS").split(",")){
+            for(final String bomb: this.bombs.split(",")){
                 if(super.canHandle(msg, botId) && msg.contains(bomb + " bomb")){
                     bombType = bomb;
                     break;
@@ -39,8 +49,7 @@ public class BombRule extends DirectMessageRule {
             } catch(NumberFormatException e){
                 number = 1;
             }
-            final GoogleImageHelper googleImageHelper = new GoogleImageHelper(properties.getProperty("GOOGLE_SEARCH"), properties.getProperty("GOOGLE_KEY"));
-            return googleImageHelper.search(bombType, number);
+            return this.googleImageHelper.search(bombType, number);
         } catch (IOException e) {
             e.printStackTrace();
         }

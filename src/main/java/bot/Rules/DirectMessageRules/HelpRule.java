@@ -1,14 +1,13 @@
 package bot.Rules.DirectMessageRules;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.Scanner;
 
+@Component
 public class HelpRule extends DirectMessageRule {
-    public HelpRule(final Properties properties) {
-        super(properties);
-    }
 
     @Override
     public boolean canHandle(final String msg, final String botId) {
