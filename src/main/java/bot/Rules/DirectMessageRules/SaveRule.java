@@ -30,7 +30,7 @@ public class SaveRule extends DirectMessageRule{
             final JsonObject response = element.getAsJsonObject();
             final JsonObject verse = response.get("verse").getAsJsonObject().get("details").getAsJsonObject();
             final String user = super.handle(msg, botId).replace("save ", "");
-            return (!user.equals("me") ? user : "") + "```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
+            return (!user.equals("me") ? user : "") + " ```" + verse.get("text").getAsString() + " - " + verse.get("reference").getAsString() + "```";
         } catch (IOException e) {
             e.printStackTrace();
         }
