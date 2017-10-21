@@ -27,10 +27,11 @@ public class MessagePostedListener implements SlackMessagePostedListener{
         final String messageContent = event.getMessageContent();
         final SlackUser messageSender = event.getSender();
         final SlackPersona self = session.sessionPersona();
-        if(self.getId().equals(messageSender.getId())) { return; }
+        final boolean isFromSlackbot = event.getMessageSubType().equals(SlackMessagePosted.MessageSubType.BOT_MESSAGE);
+        if(self.getId().equals(messageSender.getId()) || messageSender.isBot() || isFromSlackbot) { return; }
 
         for (final Rule rule: this.rules) {
-            if(rule.canHandle(messageContent, self.getId(), channelOnWhichMessageWasPosted.isDirect()) && !messageSender.isBot()){
+            if(rule.canHandle(messageContent, self.getId(), channelOnWhichMessageWasPosted.isDirect())){
                 try {
                     session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
                     break;
