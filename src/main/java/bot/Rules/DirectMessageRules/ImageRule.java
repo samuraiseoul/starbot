@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ImageRule extends DirectMessageRule {
+public class ImageRule extends AbstractDirectMessageRule {
     private final GoogleImageHelper googleImageHelper;
 
     @Autowired

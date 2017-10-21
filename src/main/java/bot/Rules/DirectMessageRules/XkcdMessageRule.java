@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @Component
-public class XkcdMessageRule extends DirectMessageRule {
+public class XkcdMessageRule extends AbstractDirectMessageRule {
     private static final String XKCD_URI = "/info.0.json";
 
     private final UrlHelper urlHelper;

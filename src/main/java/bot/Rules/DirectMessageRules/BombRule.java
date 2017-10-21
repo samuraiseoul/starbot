@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class BombRule extends DirectMessageRule {
+public class BombRule extends AbstractDirectMessageRule {
 
     private final String bombs;
 

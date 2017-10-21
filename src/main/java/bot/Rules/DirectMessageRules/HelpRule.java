@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 @Component
-public class HelpRule extends DirectMessageRule {
+public class HelpRule extends AbstractDirectMessageRule {
 
     @Override
     public boolean canHandle(final String msg, final String botId) {

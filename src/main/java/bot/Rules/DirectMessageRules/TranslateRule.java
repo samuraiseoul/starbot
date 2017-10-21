@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-public class TranslateRule extends DirectMessageRule {
+public class TranslateRule extends AbstractDirectMessageRule {
     private final String googleKey;
 
     public TranslateRule(@Value("${GOOGLE_KEY}") final String googleKey) {
