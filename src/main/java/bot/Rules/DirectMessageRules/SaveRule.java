@@ -19,8 +19,9 @@ public class SaveRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().startsWith(" save ");
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        return super.canHandle(msg, botId, isDirect)
+                && msg.replace("<@" + botId + ">", "").toLowerCase().startsWith((isDirect ? "" : " ") + "save ");
     }
 
     @Override

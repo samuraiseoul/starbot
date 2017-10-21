@@ -21,9 +21,9 @@ public class BombRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
         for(final String bomb: this.bombs.split(",")){
-            if(super.canHandle(msg, botId) && msg.contains(bomb + " bomb")){
+            if(super.canHandle(msg, botId, isDirect) && msg.contains(bomb + " bomb")){
                 return true;
             }
         }
@@ -35,7 +35,7 @@ public class BombRule extends AbstractDirectMessageRule {
         try {
             String bombType = null;
             for(final String bomb: this.bombs.split(",")){
-                if(super.canHandle(msg, botId) && msg.contains(bomb + " bomb")){
+                if(super.canHandle(msg, botId, true) && msg.contains(bomb + " bomb")){
                     bombType = bomb;
                     break;
                 }

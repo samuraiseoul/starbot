@@ -16,8 +16,8 @@ public class ImageRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.contains("image me");
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        return super.canHandle(msg, botId, isDirect) && msg.contains("image me");
     }
 
     @Override

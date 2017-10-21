@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class HelpRule extends AbstractDirectMessageRule {
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.replace("<@" + botId + ">", "").toLowerCase().equals(" help");
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        return super.canHandle(msg, botId, isDirect) && msg.replace("<@" + botId + ">", "").toLowerCase().equals((isDirect ? "" : " ") + "help");
     }
 
     @Override

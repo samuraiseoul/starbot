@@ -21,8 +21,8 @@ public class XkcdMessageRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.toLowerCase().contains("xkcd");
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        return super.canHandle(msg, botId, isDirect) && msg.toLowerCase().contains("xkcd");
     }
 
     @Override

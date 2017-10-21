@@ -15,8 +15,8 @@ public class MessageRule extends AbstractMessageRule {
     }
 
     @Override
-    public boolean canHandle(String msg, String botId) {
-        if(!super.canHandle(msg, botId)){
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        if(!super.canHandle(msg, botId, isDirect)){
             return false;
         }
         for(final JsonElement rule : this.rules){

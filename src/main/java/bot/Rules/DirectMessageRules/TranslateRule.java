@@ -19,8 +19,8 @@ public class TranslateRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public boolean canHandle(final String msg, final String botId) {
-        return super.canHandle(msg, botId) && msg.contains("translate");
+    public boolean canHandle(final String msg, final String botId, final boolean isDirect) {
+        return super.canHandle(msg, botId, isDirect) && msg.contains("translate");
     }
 
     @Override
