@@ -1,6 +1,7 @@
 package bot.Rules.DirectMessageRules;
 
 import bot.Helpers.GoogleImageHelper;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class BombRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public String handle(final String msg, final String botId) {
+    public String handle(final String msg, final String botId, SlackSession session) {
         try {
             String bombType = null;
             for(final String bomb: this.bombs.split(",")){
@@ -45,7 +46,7 @@ public class BombRule extends AbstractDirectMessageRule {
             }
             int number;
             try {
-                number = Integer.parseInt(super.handle(msg, botId).replace(bombType + " bomb", "").trim());
+                number = Integer.parseInt(super.handle(msg, botId, session).replace(bombType + " bomb", "").trim());
             } catch(NumberFormatException e){
                 number = 1;
             }

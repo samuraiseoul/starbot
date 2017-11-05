@@ -1,6 +1,7 @@
 package bot.Rules.DirectMessageRules;
 
 import bot.Helpers.GoogleImageHelper;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,9 @@ public class ImageRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public String handle(final String msg, final String botId) {
+    public String handle(final String msg, final String botId, SlackSession session) {
         try {
-            return this.googleImageHelper.search(super.handle(msg, botId).replace("image me", "").trim());
+            return this.googleImageHelper.search(super.handle(msg, botId, session).replace("image me", "").trim());
         } catch (IOException e) {
             e.printStackTrace();
         }

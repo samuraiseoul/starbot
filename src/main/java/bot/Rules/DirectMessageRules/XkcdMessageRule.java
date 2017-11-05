@@ -3,6 +3,7 @@ package bot.Rules.DirectMessageRules;
 import bot.Helpers.UrlHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +27,9 @@ public class XkcdMessageRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public String handle(final String msg, final String botId) {
+    public String handle(final String msg, final String botId, SlackSession session) {
         try {
-            final String message = super.handle(msg, botId).replace("xkcd", "").trim();
+            final String message = super.handle(msg, botId, session).replace("xkcd", "").trim();
             if(message.equals("")){
                 return this.getMostRecentXkcd();
             }

@@ -2,7 +2,7 @@
 ----
 A slack bot made to remind you of the important things in life. 
 
-## Commands
+## Commands (can omit @starbot if in direct message)
 ----
  * @starbot help
     * Displays this readme file.
@@ -18,6 +18,8 @@ A slack bot made to remind you of the important things in life.
     * Any messages in a channel where slackbot is present and someone says the word indeed, causes a gif of Teal'c from Stargate SG-1 saying "Indeed" to appear
  * faith/disturbing
     * Any message in a channel where slackbot is present and someone uses the word faith or disturbing, a gif of vader saying "I find your lack of faith disturbing." will be displayed
+ * gay
+    * Any message in a channel where slackbot is present and someone uses the word gay, a gay seal meme will appear
  * @starbot xkcd
     * Selects the most recent xkcd comic with it's title attribute
  * @starbot xkcd random
@@ -30,3 +32,5 @@ A slack bot made to remind you of the important things in life.
     * Selects and displays a random bible verse from http://www.ourmanna.com
  * @starbot save @user
     * Selects and displays a random bible verse from http://www.ourmanna.com at the specified user
+ * @starbot puppet <channel> <msg>
+    * Starbot says the message in the specified channel (only works in direct messages)

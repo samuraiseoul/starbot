@@ -33,7 +33,7 @@ public class MessagePostedListener implements SlackMessagePostedListener{
         for (final Rule rule: this.rules) {
             if(rule.canHandle(messageContent, self.getId(), channelOnWhichMessageWasPosted.isDirect())){
                 try {
-                    session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId()));
+                    session.sendMessage(channelOnWhichMessageWasPosted, rule.handle(messageContent, self.getId(), session));
                     break;
                 } catch(Throwable t) {
                     t.printStackTrace();

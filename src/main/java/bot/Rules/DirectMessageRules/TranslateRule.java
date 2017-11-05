@@ -2,13 +2,11 @@ package bot.Rules.DirectMessageRules;
 
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Component
 public class TranslateRule extends AbstractDirectMessageRule {
@@ -24,8 +22,8 @@ public class TranslateRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public String handle(final String msg, final String botId) {
-        final List<String> options = new LinkedList<>(Arrays.asList(super.handle(msg, botId).toLowerCase().replace("translate", "").trim().split(" ")));
+    public String handle(final String msg, final String botId, SlackSession session) {
+        final List<String> options = new ArrayList<>(Arrays.asList(super.handle(msg, botId, session).toLowerCase().replace("translate", "").trim().split(" ")));
         if(options.size() < 3){
             return "Invalid format, please enter in format of: translate {source} {target} {query}!";
         }

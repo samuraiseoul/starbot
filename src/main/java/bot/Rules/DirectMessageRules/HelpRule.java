@@ -1,5 +1,6 @@
 package bot.Rules.DirectMessageRules;
 
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -15,7 +16,7 @@ public class HelpRule extends AbstractDirectMessageRule {
     }
 
     @Override
-    public String handle(final String msg, final String botId) {
+    public String handle(final String msg, final String botId, SlackSession session) {
         try {
             return "```" + new Scanner(new File("README.md")).useDelimiter("\\Z").next() + "```";
         } catch (IOException e) {

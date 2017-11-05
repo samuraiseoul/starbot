@@ -3,6 +3,7 @@ package bot.Rules.MessageRules;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ public class MessageRule extends AbstractMessageRule {
     }
 
     @Override
-    public String handle(String msg, String botId) {
+    public String handle(String msg, String botId, SlackSession session) {
         for(final JsonElement rule : this.rules){
             if(this.wordMatch(msg, rule.getAsJsonObject().get("word").getAsString())) {
                 return rule.getAsJsonObject().get("gif").getAsString();
