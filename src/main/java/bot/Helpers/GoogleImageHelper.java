@@ -40,7 +40,7 @@ public class GoogleImageHelper {
         for(final JsonElement item : items){
             images.add(item.getAsJsonObject().get("link").getAsString());
         }
-        return String.join(" ", images);
+        return String.join(" \n", images);
     }
 
     public String search(final String query) throws IOException {
